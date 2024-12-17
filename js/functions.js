@@ -88,7 +88,6 @@ function slice(string2, startIndex = 0, endIndex = string2.length) {
   return result2;
 }
 
-slice(slice(testString, 1, 3));
 // console.log(testString.slice());
 // console.log(testString.slice(1));
 // console.log(testString.slice(1, 3));
@@ -96,17 +95,3 @@ slice(slice(testString, 1, 3));
 // console.log(slice(testString));
 // console.log(slice(testString, 1));
 // console.log(slice(testString, 1, 3));
-
-function getIndexOf (string3, subString, startIndex = 0) {
-  for (let i = startIndex; i <= string3.length - subString.length; i++) {
-    if(string3.slice(i, i + subString.length) === subString) {
-      return i;
-    }
-
-    return -1;
-  }
-}
-getIndexOf(testString, 'wa');
-// console.log(testString.indexOf('wa'));
-// console.log('----');
-// console.log(getIndexOf(testString, 'wa'));
