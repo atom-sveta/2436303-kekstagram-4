@@ -98,9 +98,6 @@ function slice(string2, startIndex = 0, endIndex = string2.length) {
 
 function getIndexOf (string3, subString, startIndex = 0) {
   for (let i = startIndex; i <= string3.length - subString.length; i++) {
-    console.log(string3.length);
-    console.log(string3.length - subString.length);
-    console.log(subString.length);
     if(string3.slice(i, i + subString.length) === subString) {
       return i;
     }
