@@ -53,3 +53,4 @@ function createObject () {
 createObject();
 
 const objects = Array.from({length: 25},createObject);
+
