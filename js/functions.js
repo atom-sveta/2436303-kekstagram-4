@@ -109,3 +109,28 @@ getIndexOf(testString, 'wa');
 // console.log(testString.indexOf('wa'));
 // console.log('----');
 // console.log(getIndexOf(testString, 'wa'));
+
+const toMinutes = (str) => str
+  .split(":")
+  .reverse()
+  .reduce((acc, currentValue, i) => acc + currentValue * Math.pow(60, i), 0);
+// console.log(toMinutes('14:23'));
+
+function getTimeForBusiness(currentValue, endtWorkTime, meetingStartTime, durationOfTheMeeting) {
+  const start = toMinutes(currentValue);
+  const end = toMinutes(endtWorkTime);
+  const meeting = toMinutes(meetingStartTime);
+  // console.log(start);
+  // console.log(end);
+  // console.log(meeting);
+  const rtt = meeting + durationOfTheMeeting;
+  // console.log(rtt);
+  const time = (start <= meeting && end >= rtt) ? true : false
+  return time
+};
+
+console.log(getTimeForBusiness('08:00', '17:30', '14:00', 90));
+console.log(getTimeForBusiness('8:0', '10:0', '8:0', 120));
+console.log(getTimeForBusiness('08:00', '14:30', '14:00', 90));
+console.log(getTimeForBusiness('14:00', '17:30', '08:0', 90));
+console.log(getTimeForBusiness('8:00', '17:30', '08:00', 900));
