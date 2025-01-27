@@ -1,4 +1,4 @@
-import { getRandomArrayElement } from "./util";
+import { getRandomArrayElement, getRandomInteger, createIdGenerator } from './util';
 
 const PICTURE_COUNT = 25;
 const AVATAR_COUNT = 6;
@@ -14,26 +14,27 @@ const COMMENT_LINES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 const DESCRIPTIONS = [
-'Вау, ты выглядишь так красиво!',
-'Обалдеть, эти глаза, как жемчужины.',
-'Улыбка на миллион.',
-'Как у тебя получается всегда быть такой идеальной?',
-'Ты сногсшибательная!',
-'Нельзя быть такой совершенной!',
-'Это выглядит так красиво.',
-'Хотел бы я дважды поставить лайк.',
+  'Вау, ты выглядишь так красиво!',
+  'Обалдеть, эти глаза, как жемчужины.',
+  'Улыбка на миллион.',
+  'Как у тебя получается всегда быть такой идеальной?',
+  'Ты сногсшибательная!',
+  'Нельзя быть такой совершенной!',
+  'Это выглядит так красиво.',
+  'Хотел бы я дважды поставить лайк.',
 ];
 const NAMES = [
   'Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон',
 ];
 
+// Ф-ция создаёт массив с 1-м или 2-мя элементами
 const createMessage = () => Array.from(
   {length: getRandomInteger(1, 2)},
-    () => getRandomArrayElement(COMMENT_LINES),
+  () => getRandomArrayElement(COMMENT_LINES),
 ).join(' ');
 
 const generateCommentId = createIdGenerator();
-
+// Ф-ция возвращает комментарий
 const createComment = () => ({
   id: generateCommentId(),
   avatar: `img/avatar-${getRandomInteger(1, AVATAR_COUNT)}.svg`,
@@ -41,22 +42,24 @@ const createComment = () => ({
   name: getRandomArrayElement(NAMES),
 });
 
+// Ф-ция создаёт объект с описанием фотографии
 const createPicture = (index) => ({
-    id: index,
-    url: `photos/${index}.jpg`,
-    description: getRandomArrayElement(DESCRIPTIONS),
-    likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
-    comments: Array.from(
-      {length: getRandomInteger(0, COMMENT_COUNT)},
-      createComment,
-    ),
+  id: index,
+  url: `photos/${index}.jpg`,
+  description: getRandomArrayElement(DESCRIPTIONS),
+  likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
+  comments: Array.from(
+    {length: getRandomInteger(0, COMMENT_COUNT)},
+    createComment,
+  ),
 });
 
+// Ф-ция возвращает 25 объектов
 const getPictures = () => Array.from(
   {length: PICTURE_COUNT},
   (_, pictureIndex) => createPicture(pictureIndex + 1),
 );
 
-console.log(getPictures())
+// console.log(getPictures());
 
-export {getPictures}
+export {getPictures};
