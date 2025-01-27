@@ -1,5 +1,7 @@
 import { getRandomInteger, getRandomArrayElement, padNum, getRandomArray, getRandomFloat} from './util';
 
+const SIMILAR_AD_COUNT = 10;
+
 const MAX_NUM_IMAGE_ADDRESSES = 10;
 const TITLE = ['Продаю', 'Покупаю', 'Сдаю', 'Сниму '];
 const BILDING_TYPE = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
@@ -50,5 +52,11 @@ const createAd = () => {
   };
 };
 
-createAd();
-// console.log(createAd());
+// Ф-ция возвращает 10 объявлений
+const getSimilarAds  = () => Array.from(
+  {length: SIMILAR_AD_COUNT},
+  (_, pictureIndex) => createAd(pictureIndex + 1),
+);
+
+export{ getSimilarAds };
+// console.log(getSimilarAds());
