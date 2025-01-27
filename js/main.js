@@ -13,14 +13,14 @@ const COMMENT_LINES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 const DESCRIPTIONS = [
-'Вау, ты выглядишь так красиво!',
-'Обалдеть, эти глаза, как жемчужины.',
-'Улыбка на миллион.',
-'Как у тебя получается всегда быть такой идеальной?',
-'Ты сногсшибательная!',
-'Нельзя быть такой совершенной!',
-'Это выглядит так красиво.',
-'Хотел бы я дважды поставить лайк.',
+  'Вау, ты выглядишь так красиво!',
+  'Обалдеть, эти глаза, как жемчужины.',
+  'Улыбка на миллион.',
+  'Как у тебя получается всегда быть такой идеальной?',
+  'Ты сногсшибательная!',
+  'Нельзя быть такой совершенной!',
+  'Это выглядит так красиво.',
+  'Хотел бы я дважды поставить лайк.',
 ];
 
 const NAMES = [
@@ -37,7 +37,7 @@ const getRandomInteger = (a, b) => {
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 const createMessage = () => Array.from(
-{length: getRandomInteger(1, 2)},
+  {length: getRandomInteger(1, 2)},
   () => getRandomArrayElement(COMMENT_LINES),
 ).join(' ');
 
@@ -46,7 +46,7 @@ const createIdGenerator = () => {
 
   return () => {
     lastGenerateId += 1;
-    return lastGenerateId
+    return lastGenerateId;
   };
 };
 
@@ -60,14 +60,14 @@ const createComment = () => ({
 });
 
 const createPicture = (index) => ({
-    id: index,
-    url: `photos/${index}.jpg`,
-    description: getRandomArrayElement(DESCRIPTIONS),
-    likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
-    comments: Array.from(
-      {length: getRandomInteger(0, COMMENT_COUNT)},
-      createComment,
-    ),
+  id: index,
+  url: `photos/${index}.jpg`,
+  description: getRandomArrayElement(DESCRIPTIONS),
+  likes: getRandomInteger(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
+  comments: Array.from(
+    {length: getRandomInteger(0, COMMENT_COUNT)},
+    createComment,
+  ),
 });
 
 createPicture();
@@ -77,47 +77,84 @@ const getPictures = () => Array.from(
   (_, pictureIndex) => createPicture(pictureIndex + 1),
 );
 
-console.log(getPictures())
+console.log(getPictures());
+
 
 // Кексобукинг
 
-const bildingType = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const MAX_NUM_IMAGE_ADDRESSES = 10;
+const TITLE = ['Продаю', 'Покупаю', 'Сдаю', 'Сниму '];
+const BILDING_TYPE = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const checkinArr = ['12:00', '13:00', '14:00'];
 const checkoutArr = ['12:00', '13:00', '14:00'];
 const feachersArr = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const DESCRIPTIONS2 = [
+  'Лучшая цена и расположение',
+  'Тихо и уютно',
+  'В самом центре',
+  'Лучшее семейное гнёздышко',
+  'Красивая панорама из окна',
+  'Дёшево и сердито',
+  'Всё лучшее для тебя',
+];
+const PHOTOS = [
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
+];
+const MIN_LAT = 35.65000;
+const MAX_LAT = 35.70000;
 
-const randomInteger = getRandomInteger(1, 10);
+const MIN_LNG = 139.70000;
+const MAX_LNG = 139.80000;
+
+// const getRandomInteger = (a, b) => {
+//   const lower = Math.ceil(Math.min(a, b));
+//   const upper = Math.floor(Math.max(a, b));
+//   const result = Math.random() * (upper - lower + 1) + lower;
+//   return Math.abs(Math.floor(result));
+// };
 
 const padNum = (num) => num.toString().padStart(2, 0);
 
+const getRandomArrayIndex = (elements) => getRandomInteger(0, elements.length - 1);
+// const getRandomArrayElement = (elements) => elements[getRandomArrayIndex(elements)];
+
+const getFeachers= () => Array.from(
+  {length: getRandomArrayIndex(feachersArr)},
+  () => getRandomArrayElement(feachersArr),
+);
+
+const getPhotos= () => Array.from(
+  {length: getRandomArrayIndex(PHOTOS)},
+  () => getRandomArrayElement(PHOTOS),
+);
+
+const randomAbsValue = Math.abs(Math.round(Math.random() * 1000));
+
 const getRandomArbitrary = (min, max) => Math.random() * (max - min) + min;
 
-const randomAbsValue = Math.abs().Math.round(Math.random() * 1000);
-
- const createAd = () => {
+const createAd = () => {
+  const location = {
+    lat: getRandomArbitrary(MIN_LAT, MAX_LAT),
+    lng: getRandomArbitrary(MIN_LNG, MAX_LNG),
+  };
   return {
-  author: {avatar: `img/avatars/user${padNum(randomInteger)}.png`},
-
-  location: {
-    lat: getRandomArbitrary(35.65000, 35.70000),
-    lng: getRandomArbitrary(139.70000, 139,80000)
-  },
-
-  offer: {
-    title: 'Заголовок предложения',
-    address: {locationlat, locationlng},
-    price: randomAbsValue,
-    type: getRandomInteger(0, bildingType.length - 1),
-    rooms: randomAbsValue,
-    guests: randomAbsValue,
-    checkin: getRandomInteger(0, checkinArr.length - 1),
-    checkout: getRandomInteger(0, checkoutArr.length - 1),
-    features: [],
-    description: 'Описание помещения',
-    photos: []
-  },
-
-  }
+    author: {avatar: `img/avatars/user${padNum(getRandomInteger(1, MAX_NUM_IMAGE_ADDRESSES))}.png`},
+    offer: {
+      title: getRandomArrayElement(TITLE),
+      address: `${location.lat},  ${location.lng}`,
+      price: `${randomAbsValue  } Pуб.`,
+      type: getRandomArrayElement(BILDING_TYPE),
+      rooms: getRandomInteger(1, 6),
+      guests: getRandomInteger(1, 12),
+      checkin: getRandomArrayElement(checkinArr),
+      checkout: getRandomArrayElement(checkoutArr),
+      features: getFeachers(),
+      description: getRandomArrayElement(DESCRIPTIONS2),
+      photos: getPhotos(PHOTOS),
+    }
+  };
 };
 
-createAd()
+console.log(createAd());
