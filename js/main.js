@@ -1,3 +1,4 @@
-import './util';
-import './kekstagram';
-import './keksobooking';
+import {getPictures} from './kekstagram.js';
+
+console.log(getPictures());
+

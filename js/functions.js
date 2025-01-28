@@ -88,6 +88,8 @@ function slice(string2, startIndex = 0, endIndex = string2.length) {
   return result2;
 }
 
+slice();
+
 // console.log(testString.slice());
 // console.log(testString.slice(1));
 // console.log(testString.slice(1, 3));
@@ -111,7 +113,7 @@ getIndexOf(testString, 'wa');
 // console.log(getIndexOf(testString, 'wa'));
 
 const toMinutes = (str) => str
-  .split(":")
+  .split(':')
   .reverse()
   .reduce((acc, currentValue, i) => acc + currentValue * Math.pow(60, i), 0);
 // console.log(toMinutes('14:23'));
@@ -125,9 +127,10 @@ function getTimeForBusiness(currentValue, endtWorkTime, meetingStartTime, durati
   // console.log(meeting);
   const rtt = meeting + durationOfTheMeeting;
   // console.log(rtt);
-  const time = (start <= meeting && end >= rtt) ? true : false
-  return time
-};
+  // const time = (start <= meeting && end >= rtt) ? true : false
+  const time = !!((start <= meeting && end >= rtt));
+  return time;
+}
 
 console.log(getTimeForBusiness('08:00', '17:30', '14:00', 90));
 console.log(getTimeForBusiness('8:0', '10:0', '8:0', 120));

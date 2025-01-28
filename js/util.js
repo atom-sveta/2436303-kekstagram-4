@@ -35,10 +35,10 @@ const createIdGenerator = () => {
 };
 
 export {
-  getRandomArrayElement,
   getRandomInteger,
-  createIdGenerator,
+  getRandomArrayElement,
   padNum,
   getRandomArray,
-  getRandomFloat
+  getRandomFloat,
+  createIdGenerator,
 };
