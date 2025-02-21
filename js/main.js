@@ -1,5 +1,5 @@
 import {getPictures} from './kekstagram.js';
-import './drawingThumbnails.js';
+import {renderThumbnails} from './drawingThumbnails.js';
 
-getPictures();
+renderThumbnails(getPictures());
 
