@@ -132,8 +132,8 @@ function getTimeForBusiness(currentValue, endtWorkTime, meetingStartTime, durati
   return time;
 }
 
-console.log(getTimeForBusiness('08:00', '17:30', '14:00', 90));
-console.log(getTimeForBusiness('8:0', '10:0', '8:0', 120));
-console.log(getTimeForBusiness('08:00', '14:30', '14:00', 90));
-console.log(getTimeForBusiness('14:00', '17:30', '08:0', 90));
-console.log(getTimeForBusiness('8:00', '17:30', '08:00', 900));
+getTimeForBusiness('08:00', '17:30', '14:00', 90);
+// console.log(getTimeForBusiness('8:0', '10:0', '8:0', 120));
+// console.log(getTimeForBusiness('08:00', '14:30', '14:00', 90));
+// console.log(getTimeForBusiness('14:00', '17:30', '08:0', 90));
+// console.log(getTimeForBusiness('8:00', '17:30', '08:00', 900));

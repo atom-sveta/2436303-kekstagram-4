@@ -1,4 +1,5 @@
 import {getPictures} from './kekstagram.js';
+import './drawingThumbnails.js';
 
-console.log(getPictures());
+getPictures();
 
