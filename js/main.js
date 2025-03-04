@@ -1,5 +1,8 @@
 import {getPictures} from './kekstagram.js';
 import {renderThumbnails} from './drawingThumbnails.js';
+import {renderGallery} from './gallery.js';
 
-renderThumbnails(getPictures());
+const container = document.querySelector('.pictures');
 
+renderThumbnails(getPictures(), container);
+renderGallery(getPictures());
