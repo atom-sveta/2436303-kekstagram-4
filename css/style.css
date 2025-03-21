@@ -1395,3 +1395,21 @@ main {
 .hidden {
   display: none;
 }
+
+.img-upload__field-wrapper--error-text {
+  width: 450px;
+
+  margin: 0 auto;
+  margin-top: -18px;
+  /* padding: 5px 10px; */
+
+  background-color: rgba(128, 115, 37, 0.413);
+
+  font-family: "Open Sans", "Arial", sans-serif;
+  font-weight: 400;
+  text-transform: lowercase;
+}
+
+.img-upload__field-wrapper--error-text::first-letter {
+  text-transform: uppercase;
+}

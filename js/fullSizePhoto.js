@@ -1,3 +1,5 @@
+import { isEscapeKey } from './util.js';
+
 const COMMENTS_PER_PORRTION = 5;
 
 const bodyElement = document.querySelector('body');
@@ -18,7 +20,6 @@ let comments =[];
 
 const createComment = ({avatar, name, message}) => {
   const comment = commentElement.cloneNode(true);
-
   comment.querySelector('.social__picture').src = avatar;
   comment.querySelector('.social__picture').alt = name;
   comment.querySelector('.social__text').textContent = message;
@@ -57,8 +58,8 @@ const hideBigPicture = () => {
 };
 
 function onDocumentKeydown(evt) {
-  if (evt.key === 'Escape') {
-    evt.preventDefalt();
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
     hideBigPicture();
   }
 }
@@ -67,7 +68,9 @@ const onCancelButtonClick = () => {
   hideBigPicture();
 };
 
-const onCommentsLoaderClick = () => renderComments();
+const onCommentsLoaderClick = () => {
+  renderComments();
+};
 
 const renderPictureDetails = ({url, likes, description}) => {
   bigPictureElement.querySelector('.big-picture__img img').src = url;
