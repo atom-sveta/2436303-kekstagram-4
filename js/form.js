@@ -1,4 +1,5 @@
 import { isEscapeKey } from './util.js';
+import { resetScale } from './scale.js';
 
 const HASHTAG_VALID_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAG_NUMBERS = 5;
@@ -36,6 +37,7 @@ const pristine = new Pristine(forms, {
 
 const openOverlay = () => {
   overlayImgUpload.classList.remove('hidden');
+  resetScale();
   body.classList.add('modal-open');
   document.addEventListener('keydown', onOverlayEscKeydown);
 };
@@ -43,6 +45,7 @@ const openOverlay = () => {
 const closeOverlay = () => {
   forms.reset();
   pristine.reset();
+
   overlayImgUpload.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onOverlayEscKeydown);

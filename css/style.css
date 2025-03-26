@@ -494,6 +494,14 @@ main {
           transform: translate(-50%, -50%);
 }
 
+.scale__control--disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.scale__control--disabled::before {
+  color: rgba(230, 230, 230, 0.5);
+}
 
 /**
  * Превью изображения
@@ -513,7 +521,7 @@ main {
   width: 600px;
   height: 600px;
 
-  background-color: #ffffff;
+  background-color: #252525b1;
 }
 
 .img-upload__preview img {
