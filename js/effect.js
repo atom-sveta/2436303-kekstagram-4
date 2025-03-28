@@ -2,6 +2,7 @@ import { previewNode } from './scale.js';
 
 const effectsContainerNode = document.querySelector('.img-upload__effects');
 const sliderNode = document.querySelector('.effect-level__slider');
+const effectValueNode = ('.effect-level__value');
 
 let prevEvent ;
 const selectEffect = (evt) => {
@@ -19,6 +20,7 @@ noUiSlider.create(sliderNode, {
     'min': 0,
     'max': 100
   },
-  start: 80,
+  start: 100,
+  connect: 'lower',
 });
 
