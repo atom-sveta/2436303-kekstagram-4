@@ -77,7 +77,7 @@ main {
   background-repeat: no-repeat;
 
   border: 0;
-  border-radius: 8px;
+  border-radius: 4px;
 
   opacity: 0.6;
 }
@@ -447,7 +447,7 @@ main {
 }
 
 .scale__control--smaller {
-  border-radius: 50% 0 0 50%;
+  border-radius: 4px 0 0 4px;
 }
 
 .scale__control--smaller::before {
@@ -476,7 +476,7 @@ main {
 }
 
 .scale__control--bigger {
-  border-radius: 0 50% 50% 0;
+  border-radius: 0 4px 4px 0;
 }
 
 .scale__control--bigger::before {
@@ -524,7 +524,7 @@ main {
 
   background-color: #252525b1;
   border: 1px solid #595959b0;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .img-upload__preview img {
@@ -532,7 +532,7 @@ main {
   width: 582px;
   height: 582px;
 
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 

@@ -1,82 +1,73 @@
 import { previewNode } from './scale.js';
 
 const effectsContainerNode = document.querySelector('.img-upload__effects');
-const effectContainerNode = document.querySelector('.img-upload__effect-level');
-const sliderNode = effectContainerNode.querySelector('.effect-level__slider');
-const effectValueNode = effectContainerNode.querySelector('.effect-level__value');
+const effectLevelNode = document.querySelector('.img-upload__effect-level');
+const effectSliderNode = effectLevelNode.querySelector('.effect-level__slider');
+const effectValueNode = effectLevelNode.querySelector('.effect-level__value');
 
 const effects = {
-  none: '',
   chrome: {
-    MIN: 0,
-    MAX: 1,
-    STEP: 0.1,
-    getCssFilter: (value) => `grayscale(${value})`
+    range: [0, 1],
+    step: 0.1,
+    applyFilter: (value) => `grayscale(${value})`
   },
   sepia: {
-    MIN: 0,
-    MAX: 1,
-    STEP: 0.1,
-    getCssFilter: (value) => `sepia(${value})`
+    range: [0, 1],
+    step: 0.1,
+    applyFilter: (value) => `sepia(${value})`
   },
   marvin: {
-    MIN: 0,
-    MAX: 100,
-    STEP: 1,
-    getCssFilter: (value) => `invert(${value}%)`
+    range: [0, 100],
+    step: 0.1,
+    applyFilter: (value) => `invert(${value}%)`
   },
   phobos: {
-    MIN: 0,
-    MAX: 3,
-    STEP: 0.1,
-    getCssFilter: (value) => `blur(${value}px)`
+    range: [0, 3],
+    step: 0.1,
+    applyFilter: (value) => `blur(${value}px)`
   },
   heat: {
-    MIN: 1,
-    MAX: 3,
-    STEP: 0.1,
-    getCssFilter: (value) => `brightness(${value})`
+    range: [1, 3],
+    step: 0.1,
+    applyFilter: (value) => `brightness(${value})`
   },
 };
 
-let activeEffect = 'none';
+let currentEffect = 'none';
+effectLevelNode.classList.add('hidden');
 
-const getEffectOptions = (effectType) => {
-  console.log(effects[effectType]);
-  const {MIN, MAX, STEP} = effects[effectType];
-  return {
-    start: MAX,
+const createSlider = (effectType) => {
+  const [min, max] = effects[effectType].range;
+
+  return noUiSlider.create(effectSliderNode, {
+    start: max,
+    step: effects[effectType].step,
     connect: 'lower',
-    step: STEP,
-    range: {
-      'min': MIN,
-      'max': MAX
-    },
-  };
+    range: { min, max },
+  });
 };
 
-noUiSlider.create(sliderNode, getEffectOptions);
+const updateSlider = (effectType) => {
+  if (effectSliderNode.noUiSlider) {
+    effectSliderNode.noUiSlider.destroy();
+  }
 
-// sliderNode.noUiSlider.on('update', () => {
-//   effectValueNode.value = sliderNode.noUiSlider.get();
-// });
+  if (effectType === 'none') {
+    effectLevelNode.classList.add('hidden');
+    previewNode.style.filter = 'none';
+  } else {
+    effectLevelNode.classList.remove('hidden');
+    const slider = createSlider(effectType);
 
-// let prevEvent ;
-// const selectEffect = (evt) => {
-//   previewNode.classList.remove(prevEvent);
-//   previewNode.classList.add(`effects__preview--${evt.target.value}`);
-//   prevEvent = `effects__preview--${evt.target.value}`;
-//   noUiSlider.create();
-// };
-
-const selectEffect = (evt) => {
-  effectValueNode.value = sliderNode.noUiSlider.get();
-  const value = evt.target.value;
-  console.log(value);
-  previewNode.style.filter = effects[value].getCssFilter(effectValueNode.value);
-  getEffectOptions(value);
+    slider.on('update', () => {
+      const value = slider.get();
+      effectValueNode.value = value;
+      previewNode.style.filter = effects[effectType].applyFilter(value);
+    });
+  }
 };
 
-effectsContainerNode.addEventListener('change', selectEffect);
-
-// const resetEffect = () => {};
+effectsContainerNode.addEventListener('change', (evt) => {
+  currentEffect = evt.target.value;
+  updateSlider(currentEffect);
+});
