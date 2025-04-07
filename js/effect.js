@@ -67,7 +67,21 @@ const updateSlider = (effectType) => {
   }
 };
 
-effectsContainerNode.addEventListener('change', (evt) => {
+const onEffectChange = (evt) => {
   currentEffect = evt.target.value;
   updateSlider(currentEffect);
-});
+};
+
+effectsContainerNode.addEventListener('change', onEffectChange);
+
+const removeSlider = () => {
+  currentEffect = 'none';
+  effectLevelNode.classList.add('hidden');
+  previewNode.style.filter = 'none';
+  if (effectSliderNode.noUiSlider) {
+    effectSliderNode.noUiSlider.destroy();
+  }
+  effectsContainerNode.removeEventListener('change', onEffectChange);
+};
+
+export {removeSlider};

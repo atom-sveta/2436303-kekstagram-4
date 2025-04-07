@@ -1,5 +1,6 @@
 import { isEscapeKey } from './util.js';
 import { resetScale } from './scale.js';
+import { removeSlider } from './effect.js';
 
 const HASHTAG_VALID_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAG_NUMBERS = 5;
@@ -45,6 +46,7 @@ const openOverlay = () => {
 const closeOverlay = () => {
   forms.reset();
   pristine.reset();
+  removeSlider();
 
   overlayImgUpload.classList.add('hidden');
   body.classList.remove('modal-open');
