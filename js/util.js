@@ -36,8 +36,6 @@ const createIdGenerator = () => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const isEnterKey = (evt) => evt.key === 'Enter';
-
 export {
   getRandomInteger,
   getRandomArrayElement,
@@ -46,5 +44,4 @@ export {
   getRandomFloat,
   createIdGenerator,
   isEscapeKey,
-  isEnterKey,
 };
