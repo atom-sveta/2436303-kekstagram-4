@@ -109,7 +109,7 @@ const blockSubmitButton = () => {
 };
 
 const unblockSubmitButton = () => {
-  submitButton.disabled = true;
+  submitButton.disabled = false;
   submitButton.textContent = submitButtonText.IDLE;
 };
 

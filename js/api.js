@@ -1,6 +1,6 @@
 const getData = () => {};
 const sendData = (body) => fetch(
-  'https://29.javascript.htmlacademy.pro/kekstagram',
+  'https://29.javascript.htmlacademy.pro',
   {
     method: 'POST',
     body: body,
