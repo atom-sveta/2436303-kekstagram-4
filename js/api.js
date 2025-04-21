@@ -1,18 +1,39 @@
-const getData = () => {};
+const BASE_URL = ' https://29.javascript.htmlacademy.pro/kekstagram';
+const Route = {
+  GET_DATA: '/data',
+  SEND_DATA: '/',
+};
+const ErrorText = {
+  GET_DATA: 'Не удалось загрузить данные. Попробуйте обновить страницу',
+  SEND_DATA: 'Не удалось отправить форму. Попробуйте ещё раз',
+};
+
+const getData = () => fetch(
+  `${BASE_URL}${Route.GET_DATA}`)
+  .then((response) => {
+    if(!response.ok) {
+      throw new Error();
+    }
+    return response.json();
+  })
+  .catch(() => {
+    throw new Error(ErrorText.GET_DATA);
+  });
+
+
 const sendData = (body) => fetch(
-  'https://29.javascript.htmlacademy.pro',
+  `${BASE_URL}${Route.SEND_DATA}`,
   {
     method: 'POST',
     body: body,
   })
   .then((response) => {
     if (!response.ok) {
-      throw new Error(`Произошла ошибка ${response.status}: ${response.statusText}`);
+      throw new Error();
     }
-
   })
   .catch(() => {
-    throw new Error('Не удалось отправить форму. Попробуйте ещё раз');
+    throw new Error(ErrorText.SEND_DATA);
   });
 
 

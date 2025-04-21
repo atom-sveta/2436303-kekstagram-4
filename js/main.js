@@ -1,20 +1,20 @@
-// import {getPictures} from './data.js';
 import {renderGallery} from './gallery.js';
+import {showAlert} from './util.js';
 import {closeOverlay} from './user-modal.js';
 import {setUserFormSubmit} from './user-form.js';
 import {resetScale} from './scale.js';
 import './effect.js';
 import {addMessages} from './message.js';
+import { getData } from './api.js';
 
-
-// renderGallery(getPictures());
-renderGallery();
 resetScale();
 addMessages();
 setUserFormSubmit(closeOverlay);
 
-fetch('https://29.javascript.htmlacademy.pro/kekstagram/data')
-  .then((response) => response.json())
+getData()
   .then((thumbnails) => {
-    console.log('Результат', thumbnails);
+    renderGallery(thumbnails);
+  })
+  .catch((err) => {
+    showAlert(err.message);
   });

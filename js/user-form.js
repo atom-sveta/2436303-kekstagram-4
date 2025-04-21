@@ -1,4 +1,4 @@
-import { isEscapeKey } from './util.js';
+import { isEscapeKey, } from './util.js';
 import {successMessageHandler, errorMessageHandler} from './message.js';
 import { sendData } from './api.js';
 
@@ -122,7 +122,9 @@ const setUserFormSubmit = (onSuccess) => {
       blockSubmitButton();
       sendData(new FormData(evt.target))
         .then(onSuccess)
-        .then(successMessageHandler.openMessage())
+        .then(() => {
+          successMessageHandler.openMessage();
+        })
         .catch(() => {
           errorMessageHandler.openMessage();
         })
