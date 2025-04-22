@@ -10,8 +10,8 @@ const getRandomInteger = (a, b) => {
 // Ф-ция возвращает случайный элемент массива
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-// Ф-ция добавляет заданные символы в начало строки
-const padNum = (num) => num.toString().padStart(2, '0');
+// // Ф-ция добавляет заданные символы в начало строки
+// const padNum = (num) => num.toString().padStart(2, '0');
 
 // Ф-ция создаёт рандомный индекс массива
 const getRandomArrayIndex = (elements) => getRandomInteger(0, elements.length - 1);
@@ -22,24 +22,11 @@ const getRandomArray = (array) => Array.from(
   () => getRandomArrayElement(array),
 );
 
-// Ф-ция возвращает cлучайное число с плавающей точкой, с фикс. кол-вом цифр после запятой
-const getRandomFloat = (min, max, fix) => (Math.random() * (max - min) + min).toFixed(fix);
-
-// Ф-ция возвращает id (Кекстаграм)
-const createIdGenerator = () => {
-  let lastGenerateId = 0;
-
-  return () => {
-    lastGenerateId += 1;
-    return lastGenerateId;
-  };
-};
-
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const showAlert = (message) => {
   const alertContainer =document.createElement('div');
-  alertContainer.style.xIndex = 100;
+  alertContainer.style.xIndex = '100';
   alertContainer.style.position = 'absolute';
   alertContainer.style.left = '0';
   alertContainer.style.top = '0';
@@ -61,10 +48,10 @@ const showAlert = (message) => {
 export {
   // getRandomInteger,
   // getRandomArrayElement,
-  padNum,
+  // padNum,
   getRandomArray,
-  getRandomFloat,
-  createIdGenerator,
+  // getRandomFloat,
+  // createIdGenerator,
   isEscapeKey,
   showAlert,
 };
