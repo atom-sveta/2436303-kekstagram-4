@@ -18,3 +18,10 @@ getData()
   .catch((err) => {
     showAlert(err.message);
   });
+
+// try {
+//   const thumbnails = await getData();
+//   renderGallery(thumbnails);
+// } catch (err) {
+//    showAlert(err.message);
+// }
