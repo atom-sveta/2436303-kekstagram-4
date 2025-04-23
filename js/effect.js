@@ -72,16 +72,23 @@ const onEffectChange = (evt) => {
   updateSlider(currentEffect);
 };
 
-effectsContainerNode.addEventListener('change', onEffectChange);
 
 const removeSlider = () => {
   currentEffect = 'none';
   effectLevelNode.classList.add('hidden');
   previewNode.style.filter = 'none';
+
   if (effectSliderNode.noUiSlider) {
     effectSliderNode.noUiSlider.destroy();
   }
   effectsContainerNode.removeEventListener('change', onEffectChange);
 };
 
-export {removeSlider};
+const initializeSlider = () => {
+  currentEffect = 'none';
+  updateSlider(currentEffect);
+  effectsContainerNode.addEventListener('change', onEffectChange);
+};
+
+
+export {initializeSlider, removeSlider};

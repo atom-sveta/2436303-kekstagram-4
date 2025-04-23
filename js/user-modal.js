@@ -1,6 +1,6 @@
 import { isEscapeKey } from './util.js';
 import { resetScale } from './scale.js';
-import { removeSlider } from './effect.js';
+import { initializeSlider, removeSlider } from './effect.js';
 import { pristine } from './user-form.js';
 
 const imgUploadSection = document.querySelector('.img-upload');
@@ -15,6 +15,8 @@ const openOverlay = () => {
   resetScale();
   body.classList.add('modal-open');
   document.addEventListener('keydown', onOverlayEscKeydown);
+
+  initializeSlider();
 };
 
 const closeOverlay = () => {
