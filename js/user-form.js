@@ -1,6 +1,4 @@
 import { isEscapeKey, } from './util.js';
-import {successMessageHandler, errorMessageHandler} from './message.js';
-import { sendData } from './api.js';
 
 const HASHTAG_VALID_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAG_NUMBERS = 5;
@@ -97,9 +95,6 @@ const onCommentFieldFocus = (evt) => {
   }
 };
 
-//  Error Сообщение должно исчезать... В таком случае вся введённая пользователем информация сохраняется,
-// чтобы у него была возможность отправить форму повторно.
-
 hashtagsField.addEventListener('keydown', onHashtagsFieldFocus);
 commentField.addEventListener('keydown', onCommentFieldFocus);
 
@@ -113,22 +108,15 @@ const unblockSubmitButton = () => {
   submitButton.textContent = submitButtonText.IDLE;
 };
 
-const setUserFormSubmit = (onSuccess) => {
-  form.addEventListener('submit', (evt) => {
+const setUserFormSubmit = (callback) => {
+  form.addEventListener('submit', async (evt) => {
     evt.preventDefault();
-
     const isValid = pristine.validate();
+
     if (isValid) {
       blockSubmitButton();
-      sendData(new FormData(evt.target))
-        .then(onSuccess)
-        .then(() => {
-          successMessageHandler.openMessage();
-        })
-        .catch(() => {
-          errorMessageHandler.openMessage();
-        })
-        .finally(unblockSubmitButton);
+      await callback(new FormData(form));
+      unblockSubmitButton();
     }
   });
 };
