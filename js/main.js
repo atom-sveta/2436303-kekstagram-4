@@ -4,6 +4,7 @@ import {closeOverlay} from './user-modal.js';
 import {setUserFormSubmit} from './user-form.js';
 import {addMessages, successMessageHandler, errorMessageHandler} from './message.js';
 import { getData, sendData } from './api.js';
+import {imgFiltersContainerNode} from './filter.js'
 
 addMessages();
 
@@ -20,6 +21,7 @@ setUserFormSubmit(async (data) => {
 try {
   const thumbnails = await getData();
   renderGallery(thumbnails);
+  imgFiltersContainerNode.classList.remove('img-filters--inactive')
 } catch (err) {
    showAlert(err.message);
 }
