@@ -14,6 +14,11 @@ const drawingThumbnails = ({url, description, likes, comments, id}) => {
 };
 
 const renderThumbnails = (pictures, container) => {
+  const existingPictures = container.querySelectorAll('.picture');
+  existingPictures.forEach((picture) => {
+    container.removeChild(picture);
+  });
+
   const thumbnailsFragment = document.createDocumentFragment();
   pictures.forEach((picture) => {
     const thumbnail = drawingThumbnails(picture);

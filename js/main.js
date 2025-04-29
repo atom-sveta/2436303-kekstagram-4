@@ -1,10 +1,10 @@
 import {renderGallery} from './gallery.js';
-import {showAlert} from './util.js';
+import {showAlert, debounce} from './util.js';
 import {closeOverlay} from './user-modal.js';
 import {setUserFormSubmit} from './user-form.js';
 import {addMessages, successMessageHandler, errorMessageHandler} from './message.js';
 import { getData, sendData } from './api.js';
-import {imgFiltersContainerNode} from './filter.js'
+import {imgFiltersContainerNode, setRandomFilterClick, setDiscussedFilterClick, setDefaultFilterClick} from './filter.js'
 
 addMessages();
 
@@ -18,9 +18,16 @@ setUserFormSubmit(async (data) => {
   }
 });
 
+const RERENDER_DELAY = 500;
+
 try {
   const thumbnails = await getData();
+  const copyThumbnailsArr = thumbnails.slice();
   renderGallery(thumbnails);
+  setDefaultFilterClick(debounce(() => renderGallery(thumbnails), RERENDER_DELAY));
+  setRandomFilterClick(copyThumbnailsArr);
+  setDiscussedFilterClick(copyThumbnailsArr);
+
   imgFiltersContainerNode.classList.remove('img-filters--inactive')
 } catch (err) {
    showAlert(err.message);

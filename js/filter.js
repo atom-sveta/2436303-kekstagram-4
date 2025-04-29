@@ -1,58 +1,69 @@
-// 1. Найти элементы-фильтр
+import {renderGallery} from './gallery.js';
+import { debounce } from './util.js';
+
 const RANDOM_PHOTO_COUNT = 10;
+const RERENDER_DELAY = 500;
 
 const imgFiltersContainerNode = document.querySelector('.img-filters');
-const filterDefault = imgFiltersContainerNode.querySelector('#filter-random');
+const filterDefault = imgFiltersContainerNode.querySelector('#filter-default');
 const filterRandom = imgFiltersContainerNode.querySelector('#filter-random');
 const filterDiscussed = imgFiltersContainerNode.querySelector('#filter-discussed');
-const container = document.querySelector('.pictures');
-const pictures = container.querySelectorAll('[data-id]');
 
-const getShuffledArrayWithLimit = (array) => {
+const getShuffledArrayWithLimit = (array, limit) => {
   const shuffledArray = array.sort(() => Math.random() - 0.5);
-  const shuffledArrayWithLimit = shuffledArray.slice(0, RANDOM_PHOTO_COUNT);
+  const shuffledArrayWithLimit = shuffledArray.slice(0, limit);
   return shuffledArrayWithLimit;
 };
 
-const setFilterDefaultBtnClick = () => {
-  filterDefault.addEventListener('click', () => {
-    console.log('По умолчанию');
+const toggleButton = (button) => {
+  const activeButton = imgFiltersContainerNode.querySelector('.img-filters__button--active');
+  activeButton.classList.toggle('img-filters__button--active');
+  button.classList.toggle('img-filters__button--active');
+};
+
+const setDefaultFilterClick = (cb) => {
+  const debouncedCb = debounce(cb, RERENDER_DELAY);
+  filterDefault.addEventListener('click', (evt) => {
+    toggleButton(evt.target);
+    debouncedCb();
   });
 };
 
-const setFilterRandomBtnClick = () => {
-  filterRandom.addEventListener('click', () => {
-    console.log('Случайные');
-// Вызываем ф-цию рандомирования изображений
+const setRandomFilterClick = (thumbnails) => {
+  const debouncedRender = debounce(
+    () => {
+      const randomThumbnails = getShuffledArrayWithLimit(thumbnails, RANDOM_PHOTO_COUNT);
+      renderGallery(randomThumbnails);
+    },
+    RERENDER_DELAY
+  );
+
+  filterRandom.addEventListener('click', (evt) => {
+    toggleButton(evt.target);
+    debouncedRender();
   });
 };
 
-const setFilterDiscussedBtnClick = () => {
-  filterDiscussed.addEventListener('click', () => {
-    console.log('Обсуждаемые');
+const setDiscussedFilterClick = (thumbnails) => {
+  const debouncedRender = debounce(
+    () => {
+      thumbnails.sort((a, b) => b.comments.length - a.comments.length);
+      renderGallery(thumbnails);
+    },
+    RERENDER_DELAY
+  );
+  filterDiscussed.addEventListener('click', (evt) => {
+    toggleButton(evt.target);
+    debouncedRender();
   });
 };
 
 
 // «Случайные» — 10 случайных, не повторяющихся фотографий;
-// 1. Очищаю контейнер с фото
-// 2. Создаю новый массив и ограничиваю 10 фото
-// const getRandomThumbnails = (thumbnails) => {
-//   imgFiltersContainerNode.addEventListener('change', () => {
-//     container.innerHTML = '';
-//     // thumbnails
-//     //   .slise(0, RANDOM_PHOTO_COUNT);
-//   });
+// ??? Проверяю массив, чтобы ID фото не повторялось
 
-// };
-// 3. Проверяю массив, чтобы ID фото не повторялось
-// 4. отрисовываю фото
-
-// «Обсуждаемые» — фотографии, отсортированные в порядке убывания количества комментариев.
-//  2. нахожу элемент с комментариями
-//  3. создаю копию массива и добавляю туда фото в порядке убывания кол-ва фото
-
-// (устранение дребезга) При переключении фильтров, отрисовка изображений, подходящих под новый фильтр, должна производиться не чаще, чем один раз 500 мс .
+// (устранение дребезга) При переключении фильтров, отрисовка изображений, подходящих под новый фильтр,
+// должна производиться не чаще, чем один раз 500 мс .
 
 
-export {imgFiltersContainerNode};
+export {imgFiltersContainerNode, setRandomFilterClick, setDiscussedFilterClick, setDefaultFilterClick};
