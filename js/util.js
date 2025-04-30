@@ -1,6 +1,8 @@
 const ALERT_SHOW_TIME = 5000;
 
+
 const isEscapeKey = (evt) => evt.key === 'Escape';
+
 
 const showAlert = (message) => {
   const alertContainer =document.createElement('div');
@@ -23,6 +25,7 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+
 const debounce = (callback, timeoutDelay) => {
   let timeoutId;
   return (...rest) => {
@@ -31,8 +34,10 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
+
 export {
   isEscapeKey,
   showAlert,
   debounce
 };
+

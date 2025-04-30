@@ -1,7 +1,9 @@
 import {renderThumbnails} from './thumbnails.js';
 import { showBigPicture } from './fullSizePhoto.js';
 
+
 const container = document.querySelector('.pictures');
+
 
 const renderGallery = (pictures) => {
   container.addEventListener('click', (evt) => {
@@ -21,3 +23,4 @@ const renderGallery = (pictures) => {
 
 
 export {renderGallery};
+

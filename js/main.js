@@ -6,7 +6,12 @@ import {addMessages, successMessageHandler, errorMessageHandler} from './message
 import { getData, sendData } from './api.js';
 import {imgFiltersContainerNode, setRandomFilterClick, setDiscussedFilterClick, setDefaultFilterClick} from './filter.js'
 
+
+const RERENDER_DELAY = 500;
+
+
 addMessages();
+
 
 setUserFormSubmit(async (data) => {
   try {
@@ -18,13 +23,16 @@ setUserFormSubmit(async (data) => {
   }
 });
 
-const RERENDER_DELAY = 500;
 
-try {
+(async () => {
+  try {
   const thumbnails = await getData();
   const copyThumbnailsArr = thumbnails.slice();
   renderGallery(thumbnails);
-  setDefaultFilterClick(debounce(() => renderGallery(thumbnails), RERENDER_DELAY));
+
+  const debouncedRenderDefault = debounce(() => renderGallery(thumbnails), RERENDER_DELAY);
+  setDefaultFilterClick(debouncedRenderDefault);
+
   setRandomFilterClick(copyThumbnailsArr);
   setDiscussedFilterClick(copyThumbnailsArr);
 
@@ -32,3 +40,5 @@ try {
 } catch (err) {
    showAlert(err.message);
 }
+})();
+
