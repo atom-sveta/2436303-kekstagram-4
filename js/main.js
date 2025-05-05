@@ -5,6 +5,7 @@ import {setUserFormSubmit} from './user-form.js';
 import {addMessages, successMessageHandler, errorMessageHandler} from './message.js';
 import { getData, sendData } from './api.js';
 import {imgFiltersContainerNode, setRandomFilterClick, setDiscussedFilterClick, setDefaultFilterClick} from './filter.js'
+import './uploadPhoto.js'
 
 
 const RERENDER_DELAY = 500;
