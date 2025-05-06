@@ -13,7 +13,6 @@ const drawingThumbnails = ({url, description, likes, comments, id}) => {
   return thumbnailUserImage;
 };
 
-
 const renderThumbnails = (pictures, container) => {
   const existingPictures = container.querySelectorAll('.picture');
   existingPictures.forEach((picture) => {
@@ -28,6 +27,4 @@ const renderThumbnails = (pictures, container) => {
   container.append(thumbnailsFragment);
 };
 
-
 export {renderThumbnails};
-
