@@ -5,7 +5,7 @@ import {setUserFormSubmit} from './user-form.js';
 import {addMessages, successMessageHandler, errorMessageHandler} from './message.js';
 import { getData, sendData } from './api.js';
 import { initFilter, getFilteredPictures } from './filter.js';
-import './uploadPhoto.js'
+import './uploadPhoto.js';
 
 const RERENDER_DELAY = 500;
 
@@ -16,18 +16,18 @@ setUserFormSubmit(async (data) => {
     await sendData(data);
     closeOverlay();
     successMessageHandler.openMessage();
-  } catch {
+  } catch (err) {
     errorMessageHandler.openMessage();
   }
 });
 
 (async () => {
   try {
-  const data = await getData();
-  const debouncedRenderGallery = debounce(renderGallery, RERENDER_DELAY);
-  initFilter(data, debouncedRenderGallery);
-  renderGallery(getFilteredPictures());
-} catch (err) {
-   showAlert(err.message);
-}
+    const data = await getData();
+    const debouncedRenderGallery = debounce(renderGallery, RERENDER_DELAY);
+    initFilter(data, debouncedRenderGallery);
+    renderGallery(getFilteredPictures());
+  } catch (err) {
+    showAlert(err.message);
+  }
 })();

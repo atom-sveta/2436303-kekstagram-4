@@ -20,15 +20,14 @@ const ErrorText = {
 const load = async (route, errorText, method = Method.GET, body = null) => {
   try {
     const response = await fetch(`${BASE_URL}${route}`, {method, body});
-    if(!response.ok){
+    if(!response.ok) {
+      throw new Error(errorText);
+    }
+    return response.json();
+  } catch (error) {
     throw new Error(errorText);
   }
-
-  return response.json();
-  } catch {
-  throw new Error(errorText);
-  }
-}
+};
 
 
 const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA);

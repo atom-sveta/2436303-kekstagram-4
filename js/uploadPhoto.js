@@ -4,17 +4,20 @@ const fileChooser = document.querySelector('.img-upload__start input[type=file]'
 const preview = document.querySelector('.img-upload__preview img');
 const effectsPreview = document.querySelectorAll('.effects__preview');
 
-fileChooser.addEventListener('change', () => {
-  const file = fileChooser.files[0];
+const isValidType = (file) => {
   const fileName = file.name.toLowerCase();
+  return FILE_TYPE.some((it) => fileName.endsWith(it));
+};
 
-  const matches = FILE_TYPE.some((it) => fileName.endsWith(it));
+const onFileInputChange = () => {
+  const file = fileChooser.files[0];
 
-  if (matches) {
+  if (file && isValidType(file)) {
     preview.src = URL.createObjectURL(file);
     effectsPreview.forEach((item) => {
       item.style.backgroundImage = `url(${preview.src})`;
     });
   }
-});
+};
 
+export {onFileInputChange};

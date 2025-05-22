@@ -5,9 +5,9 @@ const MAX_HASHTAG_NUMBERS = 5;
 const VALID_COMMENT_LENGTH = 140;
 const ErrorText = {
   INVALID_COUNT_TAGS: `Максимум ${MAX_HASHTAG_NUMBERS} хэштегов`,
-  NOT_UNIQUE_TAGS: 'Не повторяй хэштеги',
-  INVALID_PATTERN_TAGS: 'Начинай хэштег с "#" и пиши от 1-ой до 19-ти букв и/или цифр',
-  INVALID_COMMENT_LENGTH: 'не превышай лимит в 140 символов',
+  NOT_UNIQUE_TAGS: 'Такой хэштег уже есть. Придумай новый',
+  INVALID_PATTERN_TAGS: '"#" + "слово" = #слово (до 19-ти символов после "#")',
+  INVALID_COMMENT_LENGTH: 'Максимальное количество: 140 символов',
 };
 
 const submitButtonText = {
@@ -71,7 +71,7 @@ pristine.addValidator(
 
 pristine.addValidator(
   hashtagsField,
-  hasValidCommentLength,
+  hasValidTagsCount,
   ErrorText.INVALID_COUNT_TAGS,
   3,
   true
@@ -79,9 +79,10 @@ pristine.addValidator(
 
 pristine.addValidator(
   commentField,
-  hasValidTagsCount,
+  hasValidCommentLength,
   ErrorText.INVALID_COMMENT_LENGTH,
 );
+
 
 const onHashtagsFieldFocus = (evt) => {
   if (isEscapeKey(evt)) {

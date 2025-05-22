@@ -1,3 +1,4 @@
+/* global wNumb */
 import { previewNode } from './scale.js';
 
 const effectsContainerNode = document.querySelector('.img-upload__effects');
@@ -18,7 +19,7 @@ const effects = {
   },
   marvin: {
     range: [0, 100],
-    step: 0.1,
+    step: 1,
     applyFilter: (value) => `invert(${value}%)`
   },
   phobos: {
@@ -44,6 +45,14 @@ const createSlider = (effectType) => {
     step: effects[effectType].step,
     connect: 'lower',
     range: { min, max },
+    format: {
+      to: function (value) {
+        return Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1);
+      },
+      from: function (value) {
+        return parseFloat(value);
+      }
+    }
   });
 };
 
