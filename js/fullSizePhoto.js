@@ -13,7 +13,7 @@ const cancelButton = bigPictureElement.querySelector('.big-picture__cancel');
 // Строку с количеством видимых на странице комментариев оборачиваю в тег с классом
 commentCount.innerHTML = commentCount.innerHTML.replace(/^(.+?\s)/, '<span class=social__comment-shown-count>5</span> ');
 const commentsShownCount = commentCount.querySelector('.social__comment-shown-count');
-const commentsCount = commentCount.querySelector('.comments-count');
+const commentsCount = commentCount.querySelector('.social__comment-total-count');
 
 let commentsShown = 0;
 let comments =[];
