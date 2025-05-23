@@ -4,7 +4,8 @@ const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
-  alertContainer.dataset.error = '';
+  alertContainer.classList.add('data-error');
+  
 
   alertContainer.style.xIndex = '100';
   alertContainer.style.position = 'absolute';
