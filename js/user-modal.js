@@ -2,8 +2,8 @@ import { isEscapeKey } from './util.js';
 import { resetScale } from './scale.js';
 import { initializeSlider, removeSlider } from './effect.js';
 import { pristine } from './user-form.js';
-import {onFileInputChange} from './uploadPhoto.js';
-import { errorMessage } from './message.js';
+import { onFileInputChange } from './uploadPhoto.js';
+import { isErrorMessageVisible } from './message.js';
 
 const imgUploadSection = document.querySelector('.img-upload');
 const fileInput = imgUploadSection.querySelector('.img-upload__input');
@@ -33,7 +33,8 @@ const closeOverlay = () => {
 };
 
 function onOverlayEscKeydown(evt) {
-  if (isEscapeKey(evt) && !errorMessage){
+
+  if (isEscapeKey(evt) && !isErrorMessageVisible){
     evt.preventDefault();
     closeOverlay();
   }

@@ -4,6 +4,8 @@ const body = document.querySelector('body');
 const successMessage = document.querySelector('#success').content.querySelector('.success');
 const errorMessage = document.querySelector('#error').content.querySelector('.error');
 
+let isErrorMessageVisible = false;
+
 const hideMessage = () => {
   const message = document.querySelector('.success') || document.querySelector('.error');
   if (!message) {
@@ -14,6 +16,10 @@ const hideMessage = () => {
 
   body.removeEventListener('click', onBodyClick);
   document.removeEventListener('keydown', onEscKeydownClick);
+
+  if (message.classList.contains('error')) {
+    isErrorMessageVisible = false;
+  }
 
   if (!messageCloseButton) {
     messageCloseButton.removeEventListener('click', hideMessage);
@@ -35,16 +41,21 @@ function onBodyClick(evt) {
   }
 }
 
-const showMessage = (message, messageCloseButton) => {
+const showMessage = (messageTemplate, messageCloseButtonSelector) => {
+  const message = messageTemplate.cloneNode(true);
   message.style.zIndex = 100;
-  body.append(message.cloneNode(true));
+  body.append(message);
   body.addEventListener('click', onBodyClick);
   document.addEventListener('keydown', onEscKeydownClick);
-  document.querySelector(messageCloseButton).addEventListener('click', hideMessage);
+  document.querySelector(messageCloseButtonSelector).addEventListener('click', hideMessage);
+
+  if (message.classList.contains('error')) {
+    isErrorMessageVisible = true;
+  }
 };
 
 const successMessageHandler = () => showMessage(successMessage, '.success__button');
 
 const errorMessageHandler = () => showMessage(errorMessage, '.error__button');
 
-export {successMessageHandler, errorMessageHandler, errorMessage};
+export {successMessageHandler, errorMessageHandler, isErrorMessageVisible};
