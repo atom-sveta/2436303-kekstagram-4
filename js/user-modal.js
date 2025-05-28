@@ -3,7 +3,7 @@ import { resetScale } from './scale.js';
 import { initializeSlider, removeSlider } from './effect.js';
 import { pristine } from './user-form.js';
 import {onFileInputChange} from './uploadPhoto.js';
-import { hideMessage } from './message.js';
+import { errorMessage } from './message.js';
 
 const imgUploadSection = document.querySelector('.img-upload');
 const fileInput = imgUploadSection.querySelector('.img-upload__input');
@@ -33,7 +33,7 @@ const closeOverlay = () => {
 };
 
 function onOverlayEscKeydown(evt) {
-  if (isEscapeKey(evt) && !hideMessage()){
+  if (isEscapeKey(evt) && !errorMessage){
     evt.preventDefault();
     closeOverlay();
   }

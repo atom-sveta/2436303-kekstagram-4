@@ -47,4 +47,4 @@ const successMessageHandler = () => showMessage(successMessage, '.success__butto
 
 const errorMessageHandler = () => showMessage(errorMessage, '.error__button');
 
-export {successMessageHandler, errorMessageHandler, hideMessage};
+export {successMessageHandler, errorMessageHandler, errorMessage};
