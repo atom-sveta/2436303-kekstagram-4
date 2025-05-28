@@ -24,7 +24,7 @@ const load = async (route, errorText, method = Method.GET, body = null) => {
       throw new Error(errorText);
     }
     return response.json();
-  } catch (error) {
+  } catch (err) {
     throw new Error(errorText);
   }
 };

@@ -6,12 +6,12 @@ const VALID_COMMENT_LENGTH = 140;
 const ErrorText = {
   INVALID_COUNT_TAGS: `Максимум ${MAX_HASHTAG_NUMBERS} хэштегов`,
   NOT_UNIQUE_TAGS: 'Такой хэштег уже есть. Придумай новый',
-  INVALID_PATTERN_TAGS: '"#" + "слово" = #слово (до 19-ти символов после "#")',
-  INVALID_COMMENT_LENGTH: 'Максимальное количество: 140 символов',
+  INVALID_PATTERN_TAGS: '"#" + "буквы/цифры" (до 19-ти символов после "#")',
+  INVALID_COMMENT_LENGTH: `Максимальное количество: ${VALID_COMMENT_LENGTH} символов`,
 };
 
-const submitButtonText = {
-  IDLE: 'Сохранить',
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
   SENDING: 'Сохраняю...'
 };
 
@@ -101,12 +101,12 @@ commentField.addEventListener('keydown', onCommentFieldFocus);
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
-  submitButton.textContent = submitButtonText.SENDING;
+  submitButton.textContent = SubmitButtonText.SENDING;
 };
 
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
-  submitButton.textContent = submitButtonText.IDLE;
+  submitButton.textContent = SubmitButtonText.IDLE;
 };
 
 const setUserFormSubmit = (callback) => {
@@ -122,3 +122,4 @@ const setUserFormSubmit = (callback) => {
   });
 };
 export {pristine, setUserFormSubmit};
+
